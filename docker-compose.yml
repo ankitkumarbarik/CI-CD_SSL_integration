@@ -1,0 +1,31 @@
+services:
+  nodejs-server:
+    image: ankitkumarbarik/syncodx-node
+    restart: unless-stopped
+    # deploy:
+    #   replicas: 5
+    networks:
+      - syncodx-internal
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - nodejs-server
+    networks:
+      - syncodx-internal
+
+networks:
+  syncodx-internal:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
