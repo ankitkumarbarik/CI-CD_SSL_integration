@@ -1,18 +1,17 @@
-// ankitbarik.com {
-//     tls ankitbarik.dev@gmail.com
-//     reverse_proxy nodejs-server:5000 {
-//         header_up Host {host}
-//         header_up X-Real-IP {remote}
-//         header_up X-Forwarded-For {remote}
-//         header_up X-Forwarded-Proto {scheme}
-//     }
-// }
+# ankitbarik.com {
+#     tls ankitbarik.dev@gmail.com
+#     reverse_proxy nodejs-server:5000 {
+#         header_up Host {host}
+#         header_up X-Real-IP {remote}
+#         header_up X-Forwarded-For {remote}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
+# }
 
+# ! Recommeded for SSl - use Traefik - traefik.io
 
 
 :80 {
     reverse_proxy nodejs-server:5000
 }
 
-
-//! Recommeded for SSl - use Traefik - traefik.io
