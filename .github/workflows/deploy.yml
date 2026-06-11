@@ -56,7 +56,7 @@ jobs:
 
       - name: Build and push
         run: |
-          docker build -t ankitkumarbarik/syncodx-node:latest .
+          docker build -t ankitkumarbarik/syncodx-node .
           docker push ankitkumarbarik/syncodx-node
 
       - name: Deploy Latest Version via SSH on ExCloud
@@ -66,7 +66,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            sudo docker rm -f ankitkumarbarik/syncodx-node || true
+            sudo docker rm -f syncodx-node || true
             sudo docker pull ankitkumarbarik/syncodx-node
-            sudo docker run --name syncodx-node --restart unless-stopped -p 5000:5000 ankitkumarbarik/syncodx-node
+            sudo docker run -d --name syncodx-node --restart unless-stopped -p 5000:5000 ankitkumarbarik/syncodx-node
             sudo docker image prune -f
