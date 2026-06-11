@@ -119,8 +119,8 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /home/ubuntu/CI-CD_SSL_integration
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
             sudo docker compose pull
             sudo docker compose up -d --scale nodejs-server=5
             sudo docker image prune -f
-
